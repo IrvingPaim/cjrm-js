@@ -102,3 +102,5 @@ veja o que acontece.
 document.querySelector('#birthYear').value = myBirthYear
 document.querySelector('.formButton').click()
 */
+
+console.log('oi')
