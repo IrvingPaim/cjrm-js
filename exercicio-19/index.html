@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <title>Quiz | Você consegue acertar qual é o filme pelo título em português de Portugal?</title>
+</head>
+<body>
+  <div class="intro py-3 bg-dark text-center">
+    <div class="container">
+      <h2 class="text-warning display-3 my-4 font-weight-bold">Quiz JavaScript</h2>
+    </div>
+  </div>
+
+  <div class="final-score-container py-4 d-none bg-light text-center">
+    <div class="container lead">
+        <p>Você acertou 
+            <span class="text-primary display-4 p-3">0%</span>
+             do quiz!
+        </p>
+    </div>
+  </div>
+
+  <div class="quiz py-4 bg-warning">
+    <div class="container">
+      <h2 class="my-5 text-black">Vamos testar o conhecimento do que foi estudado até aqui no JavaScript!!</h2>
+
+      <form class="quiz-form text-black">
+        <div class="my-5">
+          <p class="lead font-weight-normal">1. Qual o método de string utilizado para colocar as letras em maiúsculas?</p>
+          <div class="form-check my-2 text-black">
+            <label class="form-check-label">
+              <input type="radio" name="inputQuestion1" value="A" checked>
+              toLowerCase()
+            </label>
+          </div>
+          <div class="form-check my-2 text-black">
+            <label class="form-check-label">
+              <input type="radio" name="inputQuestion1" value="B">
+              toUpperCase()
+            </label>
+          </div>
+          <div class="form-check my-2 text-black">
+            <label class="form-check-label">
+              <input type="radio" name="inputQuestion1" value="C">
+              slice()
+            </label>
+          </div>
+          <div class="form-check my-2 text-black">
+            <label class="form-check-label">
+              <input type="radio" name="inputQuestion1" value="D">
+              concat()
+            </label>
+          </div>
+          <div class="form-check my-2 text-black">
+            <label class="form-check-label">
+              <input type="radio" name="inputQuestion1" value="E">
+              includes()
+            </label>
+          </div>
+        </div>
+
+        <div class="my-5">
+            <p class="lead font-weight-normal">2. Qual dos valores não é um valor falsy?</p>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion2" value="A" checked>
+                0
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion2" value="B">
+                null
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion2" value="C">
+                NaN
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion2" value="D">
+                -1
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion2" value="E">
+                undefined
+              </label>
+            </div>
+          </div>
+
+          <div class="my-5">
+            <p class="lead font-weight-normal">3. Qual destas linguagens não é uma linguagem de programação?</p>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion3" value="A" checked>
+                HTML
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion3" value="B">
+                Java
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion3" value="C">
+                PHP
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion3" value="D">
+                JavaScript
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion3" value="E">
+                C#
+              </label>
+            </div>
+          </div>
+
+          <div class="my-5">
+            <p class="lead font-weight-normal">4. Selecione o método em JavaScript que remove de um vetor o primeiro elemento e o retorna como resultado.</p>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion4" value="A" checked>
+                push()
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion4" value="B">
+                pop()
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion4" value="C">
+                join()
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion4" value="D">
+                reverse()
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion4" value="E">
+                shift()
+              </label>
+            </div>
+          </div>
+
+          <div class="my-5">
+            <p class="lead font-weight-normal">5. Em Javascript se o programador deseja comparar se duas variáveis são iguais e do mesmo tipo ele deverá utilizar:</p>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion5" value="A" checked>
+                Deverá utilizar o operador “eq” 
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion5" value="B">
+                Deverá utilizar o operador “==” 
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion5" value="C">
+                Deverá utilizar o operador “===” 
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion5" value="D">
+                Deverá utilizar o operador “||”
+              </label>
+            </div>
+            <div class="form-check my-2 text-black">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion5" value="E">
+                Deverá utilizar o operador “??”
+              </label>
+            </div>
+          </div>
+        
+        <div class="text-center">
+          <button class="btn bg-dark text-warning font-weight-bold">ENVIAR</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
