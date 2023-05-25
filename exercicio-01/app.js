@@ -101,12 +101,8 @@ veja o que acontece.
 
 document.querySelector('#birthYear').value = myBirthYear
 document.querySelector('.formButton').click()
-<<<<<<< HEAD
-*/
-=======
 */
 
 console.log('oi')
 console.log('IrvingPaim')
 console.log('lasttest')
->>>>>>> 5f06bcc56fbe3b958a4e6801165ae689b1e7569a
