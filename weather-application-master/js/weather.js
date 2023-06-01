@@ -6,8 +6,8 @@ const getCityUrl = cityName =>
 
 // Função que retorna a URL necessária para a realização do request sobre os dados da cidade
 
-const getWeatherUrl = ({ Key }) => 
-    `${baseUrl}currentconditions/v1/${Key}?apikey=${APIKey}&language=pt-br`
+const getWeatherUrl = cityKey => 
+    `${baseUrl}currentconditions/v1/${cityKey}?apikey=${APIKey}&language=pt-br`
 
 // Função que retorna a URL necessária para a realização de um 2º request com os dados sobre o clima da cidade (1º request)
 
@@ -31,14 +31,12 @@ const getCityData = cityName => fetchData(getCityUrl(cityName))
 
 // Função que retorna uma PROMISE com um array de objetos de cidades
 
-const getCityWeather = async cityName => {
-    const [cityData] = await getCityData(cityName)
-    return fetchData(getWeatherUrl(cityData))
-}
+const getCityWeather = cityKey => fetchData(getWeatherUrl(cityKey))
 
-// Função que retorna uma PROMISE com as condições climáticas da cidade no index 0 do array de objetos
 
-getCityWeather('Salvador').then(console.log)
+// Função que retorna uma PROMISE com as chave da cidade
 
-// Invocação da função que retorna um array com o objeto contendo as condições climáticas da cidade passada por parâmetro
+
+
+
 
