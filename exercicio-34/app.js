@@ -12,6 +12,25 @@
     versão deve fazer o mesmo que a função anterior faz, mas de forma diferente.
 */
 
+const getReversedString = string => string
+  .split('')
+  .reverse()
+  .join('')
+
+console.log(getReversedString('123'))
+
+const reverseString = string => string
+  .split('')
+  .reduce((acc, letter) => letter + acc, '')
+
+console.log(reverseString('abc'))
+
+/*
+
+1ª - '1' + '' => '1'
+2ª - '2' + '1' => '21'
+3ª - '3' + '21' => '321'
+
 /*
   02
   
@@ -19,13 +38,17 @@
 */
 
 const numbers = [5, 20, 7, 32, 47, 15, 83, 91, 27, 33]
-let foundNumber = false
 
-numbers.forEach(number => {
-  if (number === 15) {
-    foundNumber = true
-  }
-})
+const foundNumber = numbers.includes(15)
+
+//let foundNumber = false
+//
+//numbers.forEach(number => {
+//  if (number === 15) {
+//    foundNumber = true
+//  }
+//})
+
 
 console.log(foundNumber)
 
@@ -37,3 +60,5 @@ console.log(foundNumber)
     - Substituir o if/else por um código mais elegante =D
     - Isolar a manipulação do DOM em pequenas funções de responsabilidade única.
 */
+
+
