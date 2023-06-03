@@ -5,6 +5,18 @@
     e retorna o valor da key parseado para objeto javascript.
 */
 
+const myObj = { x: 'x', y: 'y' }
+const myObjAsJSON = JSON.stringify(myObj)
+
+localStorage.setItem('myKey', myObjAsJSON)
+
+const getObjectFromLocalStorage = keyName => {
+  const keyValue = localStorage.getItem(keyName)
+  return JSON.parse(keyValue)
+}
+
+console.log(getObjectFromLocalStorage('myKey'))
+
 /*
   02
 
