@@ -122,6 +122,7 @@ if (searchAlbumExistsInArray) {
 */
 
 const obj = {
+  prop0: () => {},
   prop1: 'a',
   prop2: 'b',
   prop3: null,
@@ -131,6 +132,24 @@ const obj = {
   prop7: 7,
   prop8: { a: 'x', b: 'y' },
 }
+
+//const objAsJSON = JSON.stringify(obj, null, 2)
+//const objCopy = JSON.parse(objAsJSON)
+
+const objCopy = { 
+  ...obj,
+  prop0: () => {},
+  prop6: [
+    ...obj.prop6[0],
+    { ...obj.prop6[1] }
+  ],
+  prop8: {
+    ...obj.prop8
+  } 
+}
+
+console.log(obj, objCopy)
+console.log(obj === objCopy)
 
 /*
   06
