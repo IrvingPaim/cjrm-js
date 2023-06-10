@@ -146,7 +146,7 @@ const objCopy = {
   prop8: {
     ...obj.prop8
   } 
-}
+} // expreed operantion 
 
 console.log(obj, objCopy)
 console.log(obj === objCopy)
