@@ -31,13 +31,13 @@ console.log(getObjectFromLocalStorage('myKey'))
 
   Dica: pesquise por valueAsNumber.
 */
-
+/*
 const input = document.querySelector('[data-js="input"]')
 
 input.addEventListener('input', event => {
   console.log(event.target.valueAsNumber)
 })
-
+*/
 /*
   03
 
@@ -140,7 +140,7 @@ const objCopy = {
   ...obj,
   prop0: () => {},
   prop6: [
-    ...obj.prop6[0],
+    obj.prop6[0],
     { ...obj.prop6[1] }
   ],
   prop8: {
@@ -161,6 +161,26 @@ console.log(obj === objCopy)
 
   Dica: pesquise por Object.entries.
 */
+
+const createElement = (elementName, attributes) => {
+  const element = document.createElement(elementName)
+  const attributesAsArray = Object.entries(attributes)
+  
+  attributesAsArray.forEach(([key, value]) => element.setAttribute(key, value))
+
+  return element
+}
+
+const input = createElement('input', {
+  type: 'radio',
+  id: 'input1',
+  name: 'main',
+  value: 'principal',
+  for: 'input1',
+  'data-js': 'input1'
+})
+
+console.log(input)
 
 /*
   07
