@@ -98,6 +98,13 @@ const timestamps = [
   }
 ]
 
+const values = timestamps.reduce((acc, { date, value }) => {
+  acc[date] = value
+  return acc
+}, {})
+
+console.log(values)
+
 /*
   06
 
@@ -120,6 +127,42 @@ const timestamps = [
 
 let accumulator = 0
 const oddNumbers = [51, 97, 65, 23]
+/*
+const forEach = (arr, func) => {
+  for (let i = 0; i < arr.length; i++) {
+    func(arr[i], i, arr)
+  }
+}
+
+forEach(oddNumbers, (item, index, array) => {
+  console.log(`"${item}" é o ${index}º item do array [${array.join(', ')}]`)
+  accumulator += item
+})
+
+console.log(accumulator)
+*/
+
+const forEach = (array, func) => {
+  for (let index = 0; index < array.length; index++) {
+    const item = array[index]
+    func(item, index, array)
+  }
+}
+
+const logMessage = (item, index, array) => {
+  const message = 
+    `"${item}" é o ${index}º item do array [${array.join(', ')}]`
+  console.log(message)
+}
+
+const sumArrayItems = item => {
+  accumulator += item
+}
+
+forEach(oddNumbers, logMessage)
+forEach(oddNumbers, sumArrayItems)
+console.log(accumulator)
+
 
 /*
   07
