@@ -4,7 +4,7 @@
   - Descomente a let abaixo, descubra o que o código está tentando fazer e 
     faça-o funcionar.
 */
-
+/*
 class Animal {
   constructor (name) {
     this.name = name
@@ -13,12 +13,29 @@ class Animal {
 
 class Rabbit extends Animal {
   constructor (name) {
-    this.name = name
+    super (name)
     this.created = new Date()
   }
 }
 
-// let rabbit = new Rabbit('White Rabbit')
+let rabbit = new Rabbit('White Rabbit')
+
+console.log(rabbit)
+*/
+
+class Animal {
+  constructor (name) {
+    this.name = name
+  }
+}
+
+class Rabbit extends Animal {
+  created = new Date()
+}
+
+let rabbit = new Rabbit('White Rabbit')
+
+console.log(rabbit)
 
 /*
   02
@@ -26,12 +43,53 @@ class Rabbit extends Animal {
   - Descomente o código abaixo e implemente o que está faltando para que ele 
     funcione.
 */
+/*
+class Counter {
+  constructor (value) {
+    this.value = value
+  }
 
-// const counter = new Counter()
+  getValue () {
+    return this.value
+  }
 
-// counter.getValue()
-// counter.increment()
-// counter.getValue()
+  increment () {
+    this.value++
+  }
+}
+
+const counter = new Counter(10)
+
+console.log(counter.getValue())
+counter.increment()
+console.log(counter.getValue())
+*/
+
+class Counter {
+    #count = 0
+
+  get value () {
+    return this.#count
+  }
+
+  increment () {
+    this.#count++
+  }
+
+  set newValue (aNumber) {
+    this.#count = aNumber
+  }
+}
+
+const counter = new Counter(10)
+
+//counter.#count = 'oi'
+
+//console.log(counter.#count)
+
+counter.newValue = 7
+
+console.log(counter.value)
 
 /*
   03
@@ -49,6 +107,10 @@ const values = [
   NaN,
   () => {}
 ]
+
+const truthyValues = values.filter(Boolean)
+
+console.log(truthyValues)
 
 /*
   04
