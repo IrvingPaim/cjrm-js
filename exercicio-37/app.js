@@ -177,8 +177,8 @@ const getFormattedTime = template => {
      this.timer = setInterval(() => this.render(), this.precision)
    }
  }
- const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
- clock.start()
+ //const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
+ //clock.start()
  
 /*
   05
@@ -188,7 +188,17 @@ const getFormattedTime = template => {
     caracteres que o textarea contém.
 */
 
+const textArea = document.querySelector('[data-js="textarea"]')
+const counterParagraph = document.querySelector('[data-js="paragraph"]')
 
+const showCounterParagraph = e => {
+  const currentLength = e.target.value.length
+  const maxLength = e.target.getAttribute('maxlength')
+
+  counterParagraph.textContent = `${currentLength}/${maxLength}`
+}
+
+textArea.addEventListener('input', showCounterParagraph)
 
 /*
   06
@@ -216,3 +226,30 @@ const getFormattedTime = template => {
     vídeo de correção dos exercícios um link para a aula de introdução ao 
     reduce e um link para a documentação do método no MDN.
 */
+
+const reduce = (arr, func, initialValue) => {
+  let acc = initialValue
+
+  const accumulateCallbackReturn = (item, index, array) => {
+    acc = func(acc, item, index, array)
+  }
+
+  arr.forEach(accumulateCallbackReturn)
+
+  return acc
+}
+
+const createItemBasedProperties = (acc, item) => {
+  acc['number-' + item] = item
+  return acc
+}
+
+const sumItems = (acc, item) => acc + item
+const sumItemsPlusIndex = (acc, _, index) => acc + index
+const sumItemsUsingArrayParam = (acc, _, index, array) => acc + array[index]
+
+console.log(reduce([1, 2, 3], sumItems, 0))
+console.log(reduce([2, 3, 4], sumItems, 0))
+console.log(reduce([1, 2], createItemBasedProperties, {}))
+console.log(reduce([1, 2], sumItemsPlusIndex, 0))
+console.log(reduce([1, 2], sumItemsUsingArrayParam, 0))
