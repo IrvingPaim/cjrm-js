@@ -45,10 +45,11 @@ const movie = {
 }
 
 function getSummary () {
-  return `${this.title} foi dirigido por ${this.director} e tem ${this.starringRole} no papel principal.`
+  const { title, director, starringRole } = this
+  return `${title} foi dirigido por ${director} e tem ${starringRole} no papel principal.`
 }
 
-console.log(getSummary())
+console.log(getSummary.apply(movie))
 
 /*
   03
@@ -62,7 +63,14 @@ console.log(getSummary())
   - Descomente o código e crie a função.
 */
 
-/*
+const createObj = (acc, [key, value]) => {
+  acc[key] = value
+  return acc
+}
+
+const arrayToObj = arr => arr.reduce(createObj, {})
+
+
 console.log(
   arrayToObj([
     ['prop1', 'value1'], 
@@ -70,7 +78,7 @@ console.log(
     ['prop3', 'value3']
   ])
 )
-*/
+
 
 /*
   04
