@@ -10,7 +10,21 @@
   - Teste o método getColor do prototype dos carros.
 */
 
+const carProto = {
+  getColor () {
+    return this.color
+  }
+}
 
+let audiA8 = Object.create(carProto)
+let volvoS90 = Object.create(carProto)
+
+audiA8.color = 'azul'
+volvoS90.color = 'vermelho'
+
+console.log(audiA8.getColor(), volvoS90.getColor())
+console.log(carProto.isPrototypeOf(audiA8) && carProto.isPrototypeOf(volvoS90))
+console.log(audiA8, volvoS90)
 
 /*
   02
