@@ -108,27 +108,31 @@ const getFormattedTime = template => {
     .join(':')
 }
 
-class Clock {
-  constructor ({ template }) {
-    this.template = template
-  }
+const makeClock = ({ template }) => ({
+  template,
 
   render () {
     const formattedTime = getFormattedTime(this.template)
     console.log(formattedTime)
-  }
+  },
 
   start () {
     const oneSecond = 1000
 
     this.render()
     this.timer = setInterval(() => this.render(), oneSecond)
-  }
+  },
 
   stop () {
     clearInterval(this.timer)
   }
-}
+
+})
+
+const clock = makeClock({ template: 'h:m:s' })
+//clock.render()
+clock.start()
+//clock.stop()
 
 class ExtendedClock extends Clock {
   constructor (options) {
@@ -144,9 +148,9 @@ class ExtendedClock extends Clock {
   }
 }
 
-const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
+//const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
 
-// clock.start()
+//clock.start()
 
 /*
   05
