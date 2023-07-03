@@ -86,8 +86,10 @@ console.log(
   - Refatore as classes abaixo para factory functions.
 */
 
+const concatenateZero = unit => unit < 10 ? `0${unit}` : unit
+
 const formatTimeUnits = units => units
-  .map(unit => unit < 10 ? `0${unit}` : unit)
+  .map(concatenateZero)
 
 const getTime = () => {
   const date = new Date()
@@ -101,10 +103,11 @@ const getTime = () => {
 const getFormattedTime = template => {
   const [hours, minutes, seconds] = getTime()
   const formattedTime = formatTimeUnits([hours, minutes, seconds])
+  const getTimeAsArray = (_, index) => formattedTime[index]
 
   return template
     .split(':')
-    .map((_, index) => formattedTime[index])
+    .map(getTimeAsArray)
     .join(':')
 }
 
@@ -130,21 +133,24 @@ const makeClock = ({ template }) => ({
 })
 
 const makeExtendedClock = ({ template, precision = 1000}) => ({
-  precision,
+  template,
   ...makeClock({ template }),
   start () {
+    const oneSecond = 1000
+
     this.render()
-    this.timer = setInterval(() => this.render(), this.precision)
+    this.timer = setInterval(() => this.render(), precision = oneSecond)
   }
 })
 
 const clock = makeClock({ template: 'h:m:s' })
-const extendedclock = makeExtendedClock({ template: 'h:m:s', precision: 1000 })
+const clockExtended = makeExtendedClock({ template: 'h:m:s', precision: 1000})
 
 clock.start()
 clock.stop()
-extendedclock.start()
-extendedclock.stop()
+clockExtended.start()
+clockExtended.stop()
+
 
 /*
   05
