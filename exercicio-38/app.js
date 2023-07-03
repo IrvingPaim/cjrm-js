@@ -129,28 +129,22 @@ const makeClock = ({ template }) => ({
 
 })
 
-const clock = makeClock({ template: 'h:m:s' })
-//clock.render()
-clock.start()
-//clock.stop()
-
-class ExtendedClock extends Clock {
-  constructor (options) {
-    super(options)
-    
-    const { precision = 1000 } = options
-    this.precision = precision
-  }
-
+const makeExtendedClock = ({ template, precision = 1000}) => ({
+  precision,
+  ...makeClock({ template }),
   start () {
     this.render()
     this.timer = setInterval(() => this.render(), this.precision)
   }
-}
+})
 
-//const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
+const clock = makeClock({ template: 'h:m:s' })
+const extendedclock = makeExtendedClock({ template: 'h:m:s', precision: 1000 })
 
-//clock.start()
+clock.start()
+clock.stop()
+extendedclock.start()
+extendedclock.stop()
 
 /*
   05
