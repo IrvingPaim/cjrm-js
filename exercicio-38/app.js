@@ -146,10 +146,10 @@ const makeExtendedClock = ({ template, precision = 1000}) => ({
 const clock = makeClock({ template: 'h:m:s' })
 const clockExtended = makeExtendedClock({ template: 'h:m:s', precision: 1000})
 
-//clock.start()
-//clock.stop()
-//clockExtended.start()
-//clockExtended.stop()
+clock.start()
+clock.stop()
+clockExtended.start()
+clockExtended.stop()
 
 
 /*
