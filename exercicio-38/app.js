@@ -194,7 +194,7 @@ clockExtended.stop()
 const tableRows = document.querySelectorAll('tr')
 const exportBtn = document.querySelector('[data-js="export-table-btn"]')
 
-const getCellsText = ({ textContent}) => textContent
+const getCellsText = ({ textContent }) => textContent
 
 const getStringWithCommas = ({ cells }) => Array.from(cells)
   .map(getCellsText)
@@ -219,7 +219,9 @@ const exportTable = () => {
 
 exportBtn.addEventListener('click', exportTable)
 
+const teste = createCSVString()
 
+console.log(typeof teste)
 
 /*
   06
