@@ -219,9 +219,6 @@ const exportTable = () => {
 
 exportBtn.addEventListener('click', exportTable)
 
-const teste = createCSVString()
-
-console.log(typeof teste)
 
 /*
   06
