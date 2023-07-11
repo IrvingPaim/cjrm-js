@@ -217,7 +217,7 @@ const exportTable = () => {
   setCSVDownload(CSVString)
 }
 
-exportBtn.addEventListener('click', exportTable)
+//exportBtn.addEventListener('click', exportTable)
 
 
 /*
@@ -276,3 +276,65 @@ exportBtn.addEventListener('click', exportTable)
   PS: o desafio aqui é você implementar essa aplicação sozinho(a), antes 
   de ver as próximas aulas, ok? =)
 */
+
+const currencyOneEl = document.querySelector('[data-js="currency-one"]')
+const currencyTwoEl = document.querySelector('[data-js="currency-two"]')
+const currenciesEl = document.querySelector('[data-js="currencies-container"]')
+
+const url = 'https://v6.exchangerate-api.com/v6/a075794086a2ebbb018da932/latest/kkk'
+
+const getErrorMessage = errorType => ({
+  'unsupported-code': 'if we do not support the supplied currency code.',
+  'malformed-request': 'when some part of your request does not follow the structure shown above.',
+  'invalid-key': 'when your API key is not valid.',
+  'inactive-account': 'if your email address was not confirmed.',
+  'quota-reached': 'when your account has reached the the number of requests allowed by your plan.'
+})[errorType] || 'Não foi possível obter as informações.'
+
+const fetchExchangeRate = async () => {
+  try {
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      throw new Error('Sua conexão falhou. Não foi possível obter as informações.')
+    }
+
+    const exchangeRateData = await response.json()
+
+    if (exchangeRateData.result === 'error') {
+      throw new Error(getErrorMessage(exchangeRateData['error-type']))
+    }
+  } catch (err) {
+    const div = document.createElement('div')
+    const button = document.createElement('button')
+
+    div.textContent = err.message
+    div.classList.add('alert',  'alert-warning', 'alert-dismissible', 'fade', 'show')
+    div.setAttribute('role', 'alert')
+    button.classList.add('btn-close')
+    button.setAttribute('type', 'button')
+    button.setAttribute('aria-label', 'Close')
+
+    button.addEventListener('click', () => {
+      div.remove()
+    })
+
+    div.appendChild(button)
+    currenciesEl.insertAdjacentElement('afterend', div)
+    /*
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        Mensagem do erro
+        <button type="button" class="btn-close" aria-label="Close"></button>
+      </div>
+    */
+  }
+}
+
+fetchExchangeRate()
+
+const option = `<option>oi</option>`
+
+currencyOneEl.innerHTML = option
+currencyTwoEl.innerHTML = option
+
+console.log(currencyOneEl, currencyTwoEl)
