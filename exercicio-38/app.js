@@ -281,7 +281,7 @@ const currencyOneEl = document.querySelector('[data-js="currency-one"]')
 const currencyTwoEl = document.querySelector('[data-js="currency-two"]')
 const currenciesEl = document.querySelector('[data-js="currencies-container"]')
 
-const url = 'https://v6.exchangerate-api.com/v6/a075794086a2ebbb018da932/latest/kkk'
+const url = 'https://v6.exchangerate-api.com/v6/a075794086a2ebbb018da932/latest/USD'
 
 const getErrorMessage = errorType => ({
   'unsupported-code': 'if we do not support the supplied currency code.',
@@ -294,7 +294,6 @@ const getErrorMessage = errorType => ({
 const fetchExchangeRate = async () => {
   try {
     const response = await fetch(url)
-
     if (!response.ok) {
       throw new Error('Sua conexão falhou. Não foi possível obter as informações.')
     }
@@ -307,7 +306,7 @@ const fetchExchangeRate = async () => {
   } catch (err) {
     const div = document.createElement('div')
     const button = document.createElement('button')
-
+    
     div.textContent = err.message
     div.classList.add('alert',  'alert-warning', 'alert-dismissible', 'fade', 'show')
     div.setAttribute('role', 'alert')
@@ -338,3 +337,5 @@ currencyOneEl.innerHTML = option
 currencyTwoEl.innerHTML = option
 
 console.log(currencyOneEl, currencyTwoEl)
+
+
