@@ -303,6 +303,8 @@ const fetchExchangeRate = async () => {
     if (exchangeRateData.result === 'error') {
       throw new Error(getErrorMessage(exchangeRateData['error-type']))
     }
+
+    return exchangeRateData
   } catch (err) {
     const div = document.createElement('div')
     const button = document.createElement('button')
@@ -320,16 +322,10 @@ const fetchExchangeRate = async () => {
 
     div.appendChild(button)
     currenciesEl.insertAdjacentElement('afterend', div)
-    /*
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        Mensagem do erro
-        <button type="button" class="btn-close" aria-label="Close"></button>
-      </div>
-    */
   }
 }
 
-fetchExchangeRate()
+console.log(await fetchExchangeRate())
 
 const option = `<option>oi</option>`
 
