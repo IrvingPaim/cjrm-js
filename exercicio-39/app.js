@@ -17,11 +17,22 @@
 */
 
 const numbers = [50, 100, 50]
+const numbers2 = [1, 6]
+const numbers3 = [10, 50, 15, 20]
 
-const sum = (x, y, z) => x + y + z
+const sum = (...params) => params.reduce((acc, item) => acc + item, 0)
 
 console.log(sum(...numbers))
+console.log(sum(...numbers2))
+console.log(sum(...numbers3))
 
+/*
+const { a, b, ...x } = { a: 1, b: 2, c: 3, d: 4 }
+const [ w, y, ...z ] = [ 1, 2, 3, 4 ]
+
+console.log(a, b, x)
+console.log(w, y, z)
+*/
 /*
   02
 
