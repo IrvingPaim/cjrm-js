@@ -22,9 +22,9 @@ const numbers3 = [10, 50, 15, 20]
 
 const sum = (...params) => params.reduce((acc, item) => acc + item, 0)
 
-console.log(sum(...numbers))
-console.log(sum(...numbers2))
-console.log(sum(...numbers3))
+//console.log(sum(...numbers))
+//console.log(sum(...numbers2))
+//console.log(sum(...numbers3))
 
 /*
 const { a, b, ...x } = { a: 1, b: 2, c: 3, d: 4 }
@@ -46,7 +46,7 @@ console.log(w, y, z)
   - Para que o item do accordion seja "ativado" ao clicar, faça um toogle 
     utilizando a classe "active".
 */
-
+/*
 const accordion = document.querySelector('[data-js="accordion"]')
 
 const closeAccordionItem = accordionHeaderToBeClosed => {
@@ -81,7 +81,7 @@ const handleAccordionClick = e => {
 }
 
 accordion.addEventListener('click', handleAccordionClick)
-
+*/
 /*
   03
 
@@ -104,8 +104,30 @@ const volkswagenProto = {
   }
 }
 
-// const amarok = carMaker({ name: 'Amarok', color: 'preta' })
-// const jetta = carMaker({ name: 'Jetta', color: 'prata' })
+const toyotaProto = {
+  logCarInfo () {
+    console.log(`Toyota ${this.name}, cor ${this.color}.`)
+  }
+}
+
+const carMaker = ({ name, color }, carProto) => {
+  const car = Object.create(carProto)
+
+  car.name = name
+  car.color = color
+
+  return car
+}
+
+const amarok = carMaker({ name: 'Amarok', color: 'preta' }, volkswagenProto)
+const jetta = carMaker({ name: 'Jetta', color: 'prata' }, volkswagenProto)
+const corolla = carMaker({ name: 'corolla', color: 'preta' }, toyotaProto)
+
+//console.log(volkswagenProto.isPrototypeOf(amarok) && volkswagenProto.isPrototypeOf(jetta))
+
+//amarok.logCarInfo()
+//jetta.logCarInfo()
+//corolla.logCarInfo()
 
 /*
   04
@@ -123,9 +145,12 @@ const volkswagenProto = {
 
 const aString = 'O Curso de JavaScript Roger Melo funciona com turmas fechadas, abertas poucas vezes e é focado em quem ainda não é fluente em JS. Ou seja, quem não consegue construir aplicações web com JavaScript puro.'
 
+const getIndexesOfCharacter = (string, character) => 
+  [...string].reduce((acc, item, index) => 
+    item.toLowerCase() === character.toLowerCase() ? [...acc, index] : acc, [])
 
-
-// console.log(getIndexesOfCharacter(aString, 'b'))
+console.log(getIndexesOfCharacter(aString, 'b'))
+console.log(getIndexesOfCharacter(aString, 'o'))
 
 /*
   05
