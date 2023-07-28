@@ -149,8 +149,8 @@ const getIndexesOfCharacter = (string, character) =>
   [...string].reduce((acc, item, index) => 
     item.toLowerCase() === character.toLowerCase() ? [...acc, index] : acc, [])
 
-console.log(getIndexesOfCharacter(aString, 'b'))
-console.log(getIndexesOfCharacter(aString, 'o'))
+//console.log(getIndexesOfCharacter(aString, 'b'))
+//console.log(getIndexesOfCharacter(aString, 'o'))
 
 /*
   05
@@ -194,9 +194,38 @@ console.log(getIndexesOfCharacter(aString, 'o'))
       Se essa condição for verdadeira, faça messageIndex receber o valor que 
       ela já tem + 1 e faça characterIndex receber 0.
 */
+/*
+const typing = document.querySelector('[data-js="typing"]')
 
+const messages = ['sou fluente em JS', 'construo aplicações web com JS puro']
 
+let messageIndex = 0
+let characterIndex = 0
+let currentMessage = ''
+let currentCharacters = ''
 
+const type = () => {
+  const shouldTypeFirstMessage = messageIndex === messages.length
+
+  if (shouldTypeFirstMessage) {
+    messageIndex = 0
+  }
+  
+  currentMessage = messages[messageIndex]
+  currentCharacters = currentMessage.slice(0, characterIndex++)
+  typing.textContent = currentCharacters
+  
+  const shouldChangeMessageToBeTyped = 
+    currentCharacters.length === currentMessage.length
+
+  if (shouldChangeMessageToBeTyped) {
+    messageIndex++
+    characterIndex = 0
+  }
+}
+
+setInterval(type, 200)
+*/
 /*
   06
 
@@ -218,7 +247,17 @@ const wrongDataFormat = [
   'azul-P'
 ]
 
+const correctDataFormat = wrongDataFormat.reduce((acc, colorAndSize) => {
+  const [color, size] = colorAndSize.split('-')
+  
+  acc[color] = acc[color] || {}
+  acc[color][size] = acc[color][size] || 0
+  acc[color][size] += 1
 
+  return acc
+}, {})
+
+console.log(correctDataFormat)
 
 /*
   {
