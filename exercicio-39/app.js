@@ -194,7 +194,7 @@ const getIndexesOfCharacter = (string, character) =>
       Se essa condição for verdadeira, faça messageIndex receber o valor que 
       ela já tem + 1 e faça characterIndex receber 0.
 */
-/*
+
 const typing = document.querySelector('[data-js="typing"]')
 
 const messages = ['sou fluente em JS', 'construo aplicações web com JS puro']
@@ -225,7 +225,7 @@ const type = () => {
 }
 
 setInterval(type, 200)
-*/
+
 /*
   06
 
