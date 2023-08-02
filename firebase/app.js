@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js'
-import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore.js'
+import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore.js'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAVP3SjKCaIRSd4Glh_yPy-I_nFUC-qu3c',
@@ -13,8 +13,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
+const collectionGames = collection(db, 'games')
 
-getDocs(collection(db, 'games'))
+const formAddGame = document.querySelector('[data-js="add-game-form"]')
+
+getDocs(collectionGames)
     .then(querySnapshot => {
         const gamesLis = querySnapshot.docs.reduce((acc, doc) => {
             const { title, developedBy, createdAt } = doc.data()
@@ -35,3 +38,16 @@ getDocs(collection(db, 'games'))
         gamesList.innerHTML = gamesLis
     })
     .catch(console.log)
+
+
+formAddGame.addEventListener('submit', e => {
+    e.preventDefault()
+
+    addDoc(collectionGames, {
+        title: e.target.title.value,
+        developedBy: e.target.developer.value,
+        createdAt: serverTimestamp()
+    })
+    .then(doc => console.log('Document criado com o ID', doc.id))
+    .catch(console.log)
+})
