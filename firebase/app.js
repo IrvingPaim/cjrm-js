@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js'
-import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore.js'
+import { getFirestore, collection, addDoc, serverTimestamp, doc, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore.js'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAVP3SjKCaIRSd4Glh_yPy-I_nFUC-qu3c',
@@ -16,29 +16,59 @@ const db = getFirestore(app)
 const collectionGames = collection(db, 'games')
 
 const formAddGame = document.querySelector('[data-js="add-game-form"]')
+const gamesList = document.querySelector('[data-js="games-list"]')
+const buttonUnsub = document.querySelector('[data-js="unsub"]')
 
+const unsubscribe = onSnapshot(collectionGames, querySnapshot => {
+    console.log('callback do onsnapshot executado')
+    if(!querySnapshot.metadata.hasPendingWrites) {
+
+        const gamesLis = querySnapshot.docs.reduce((acc, doc) => {
+            const { title, developedBy, createdAt } = doc.data()
+    
+           acc += `<li data-id="${doc.id}"class="my-4">
+                <h5>${title}</h5>
+    
+                <ul>
+                    <li>Desenvolvido por ${developedBy}</li>
+                    <li>Adicionado no banco em ${createdAt.toDate()}</li>
+                </ul>
+    
+                <button data-remove="${doc.id}"class="btn btn-danger btn-sm">Remover</button>
+           </li>` 
+    
+           return acc
+        }, '') 
+    
+        gamesList.innerHTML = gamesLis
+        console.log('Manipulação de DOM executada')
+    }
+})
+
+/*
 getDocs(collectionGames)
     .then(querySnapshot => {
         const gamesLis = querySnapshot.docs.reduce((acc, doc) => {
             const { title, developedBy, createdAt } = doc.data()
 
-           acc += `<li class="my-4">
+           acc += `<li data-id="${doc.id}"class="my-4">
                 <h5>${title}</h5>
 
                 <ul>
                     <li>Desenvolvido por ${developedBy}</li>
                     <li>Adicionado no banco em ${createdAt.toDate()}</li>
                 </ul>
+
+                <button data-remove="${doc.id}"class="btn btn-danger btn-sm">Remover</button>
            </li>` 
 
            return acc
         }, '') 
 
-        const gamesList = document.querySelector('[data-js="games-list"]')
         gamesList.innerHTML = gamesLis
     })
     .catch(console.log)
-
+*/
 
 formAddGame.addEventListener('submit', e => {
     e.preventDefault()
@@ -51,3 +81,15 @@ formAddGame.addEventListener('submit', e => {
     .then(doc => console.log('Document criado com o ID', doc.id))
     .catch(console.log)
 })
+
+gamesList.addEventListener('click', e => {
+    const idRemoveButton = e.target.dataset.remove
+
+    if (idRemoveButton) {
+        deleteDoc(doc(db,'games', idRemoveButton))
+            .then(() => console.log('Game removido'))
+            .catch(console.log)
+    }
+})
+
+buttonUnsub.addEventListener('click', unsubscribe)
