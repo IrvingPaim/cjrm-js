@@ -4,7 +4,19 @@
   Implemente abaixo uma forma de digitar menos ao exibir 
   valores no console no decorrer dessa bateria de exercícios.
 */
+/*
+const { log } = console
 
+log('oi')
+console.log('oi')
+
+console.log === log
+debugger
+*/
+
+const log = (...value) => console.log(...value)
+
+//log('oi', 'olá', 'tchau')
 
 
 /*
@@ -24,9 +36,9 @@ const objs = [
 
 const propToRemove = 'b'
 
+const removeProp = (propToRemove, objs) => objs.map(({ [propToRemove]: _, ...obj }) => obj)
 
-
-// removeProp(propToRemove, objs)
+//log(removeProp(propToRemove, objs))
 
 /*
 [
@@ -62,9 +74,12 @@ const orders = [
   { username: '_rick', status: 'shipped', price: 73.65 }
 ]
 
-
-
-// getStatusCount(orders)
+const getStatusCount = orders => orders.reduce((acc, { status }) => ({
+  ...acc,
+  [status]: (acc[status] || 0) + 1
+}), {})
+ 
+//log(getStatusCount(orders))
 
 /*
 {
