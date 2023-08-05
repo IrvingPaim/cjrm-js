@@ -30,8 +30,8 @@ const unsubscribe = onSnapshot(collectionGames, querySnapshot => {
                 <h5>${title}</h5>
     
                 <ul>
-                    <li>Desenvolvido por ${developedBy}</li>
-                    <li>Adicionado no banco em ${createdAt.toDate()}</li>
+                    <li>Desenvolvido por ${developedBy}</li>  
+                    ${createdAt ? `<li>Adicionado no banco em ${new Intl.DateTimeFormat('pt-BR', {dateStyle: 'short', timeStyle: 'short'}).format(createdAt.toDate())}</li>` : ''}
                 </ul>
     
                 <button data-remove="${doc.id}"class="btn btn-danger btn-sm">Remover</button>
@@ -78,7 +78,11 @@ formAddGame.addEventListener('submit', e => {
         developedBy: e.target.developer.value,
         createdAt: serverTimestamp()
     })
-    .then(doc => console.log('Document criado com o ID', doc.id))
+    .then(doc => {
+        console.log('Document criado com o ID', doc.id)
+        e.target.reset()
+        e.target.title.focus()
+    })
     .catch(console.log)
 })
 
@@ -93,3 +97,7 @@ gamesList.addEventListener('click', e => {
 })
 
 buttonUnsub.addEventListener('click', unsubscribe)
+
+
+//<li>Adicionado no banco em ${createdAt.toDate()}</li>
+//${createdAt ? `<li>Adicionado no banco em ${new Intl.DateTimeFormat('pt-BR', {dateStyle: 'short', timeStyle: 'short'}).format(createdAt.toDate())}</li>` : ''}
