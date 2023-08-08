@@ -11,6 +11,8 @@ const firebaseConfig = {
   measurementId: 'G-4R3LL11D37'
 }
 
+const log = (...value) => console.log(...value)
+
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 const collectionGames = collection(db, 'games')
@@ -19,31 +21,29 @@ const formAddGame = document.querySelector('[data-js="add-game-form"]')
 const gamesList = document.querySelector('[data-js="games-list"]')
 const buttonUnsub = document.querySelector('[data-js="unsub"]')
 
-const unsubscribe = onSnapshot(collectionGames, querySnapshot => {
-    console.log('callback do onsnapshot executado')
+const getFormattedDate = createdAt => new Intl
+    .DateTimeFormat('pt-BR', {dateStyle: 'short', timeStyle: 'short'})
+    .format(createdAt.toDate())
+
+const renderGamesList = querySnapshot => {
     if(!querySnapshot.metadata.hasPendingWrites) {
 
-        const gamesLis = querySnapshot.docs.reduce((acc, doc) => {
-            const { title, developedBy, createdAt } = doc.data()
+        gamesList.innerHTML = querySnapshot.docs.reduce((acc, doc) => {
+            const [id, { title, developedBy, createdAt }] = [doc.id, doc.data()]
     
-           acc += `<li data-id="${doc.id}"class="my-4">
+           return `${acc}<li data-id="${id}"class="my-4">
                 <h5>${title}</h5>
     
                 <ul>
                     <li>Desenvolvido por ${developedBy}</li>  
-                    ${createdAt ? `<li>Adicionado no banco em ${new Intl.DateTimeFormat('pt-BR', {dateStyle: 'short', timeStyle: 'short'}).format(createdAt.toDate())}</li>` : ''}
+                    ${createdAt ? `<li>Adicionado no banco em ${getFormattedDate(createdAt)}</li>` : ''}
                 </ul>
     
-                <button data-remove="${doc.id}"class="btn btn-danger btn-sm">Remover</button>
+                <button data-remove="${id}"class="btn btn-danger btn-sm">Remover</button>
            </li>` 
-    
-           return acc
         }, '') 
-    
-        gamesList.innerHTML = gamesLis
-        console.log('Manipulação de DOM executada')
     }
-})
+} 
 
 /*
 getDocs(collectionGames)
@@ -70,34 +70,72 @@ getDocs(collectionGames)
     .catch(console.log)
 */
 
-formAddGame.addEventListener('submit', e => {
+const to = promise => promise
+    .then(result => [null, result])
+    .catch(error => [error])
+
+const addGame = async e => {
     e.preventDefault()
 
+    const [error, doc] = await to(addDoc(collectionGames, {
+        title: e.target.title.value,
+        developedBy: e.target.developer.value,
+        createdAt: serverTimestamp()
+    }))
+
+    if (error) {
+        return log(error)
+    }
+
+    log('Document criado com o ID', doc.id)
+    e.target.reset()
+    e.target.title.focus()
+
+    /*
     addDoc(collectionGames, {
         title: e.target.title.value,
         developedBy: e.target.developer.value,
         createdAt: serverTimestamp()
     })
     .then(doc => {
-        console.log('Document criado com o ID', doc.id)
+        log('Document criado com o ID', doc.id)
         e.target.reset()
         e.target.title.focus()
     })
-    .catch(console.log)
-})
+    .catch(log)
+    */
+}
 
-gamesList.addEventListener('click', e => {
+const deleteGame = async e => {
     const idRemoveButton = e.target.dataset.remove
 
-    if (idRemoveButton) {
-        deleteDoc(doc(db,'games', idRemoveButton))
-            .then(() => console.log('Game removido'))
-            .catch(console.log)
+    if (!idRemoveButton) {
+        return
     }
-})
 
+    const [error] = await to(deleteDoc(doc(db, 'games', idRemoveButton)))
+
+    if (error) {
+        return log(error)
+    }
+
+    log('Game removido')
+
+    /*
+    try {
+        await deleteDoc(doc(db,'games', idRemoveButton))
+        log('Game removido')
+    } catch (e) {
+        log(e)
+    } // return early
+    */
+}
+
+const handleSnapshotError = e => log(e)
+
+const unsubscribe = onSnapshot(collectionGames, renderGamesList, handleSnapshotError)
+gamesList.addEventListener('click', deleteGame)
+formAddGame.addEventListener('submit', addGame)
 buttonUnsub.addEventListener('click', unsubscribe)
 
 
-//<li>Adicionado no banco em ${createdAt.toDate()}</li>
-//${createdAt ? `<li>Adicionado no banco em ${new Intl.DateTimeFormat('pt-BR', {dateStyle: 'short', timeStyle: 'short'}).format(createdAt.toDate())}</li>` : ''}
