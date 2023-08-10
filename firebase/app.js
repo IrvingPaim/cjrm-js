@@ -25,23 +25,45 @@ const getFormattedDate = createdAt => new Intl
     .DateTimeFormat('pt-BR', {dateStyle: 'short', timeStyle: 'short'})
     .format(createdAt.toDate())
 
+const sanitize = string => DOMPurify.sanitize(string)
+
 const renderGamesList = querySnapshot => {
     if(!querySnapshot.metadata.hasPendingWrites) {
-
-        gamesList.innerHTML = querySnapshot.docs.reduce((acc, doc) => {
+        const games = querySnapshot.docs.map(doc => {
             const [id, { title, developedBy, createdAt }] = [doc.id, doc.data()]
-    
-           return `${acc}<li data-id="${id}"class="my-4">
-                <h5>${title}</h5>
-    
-                <ul>
-                    <li>Desenvolvido por ${developedBy}</li>  
-                    ${createdAt ? `<li>Adicionado no banco em ${getFormattedDate(createdAt)}</li>` : ''}
-                </ul>
-    
-                <button data-remove="${id}"class="btn btn-danger btn-sm">Remover</button>
-           </li>` 
-        }, '') 
+            gamesList.innerHTML = ''
+            
+            const liGame = document.createElement('li')
+            liGame.setAttribute('data-id', id)
+            liGame.setAttribute('class', 'my-4')
+
+            const h5 = document.createElement('h5')
+            h5.textContent = sanitize(title)
+            
+            const ul = document.createElement('ul')
+
+            const liDevelopedBy = document.createElement('li')
+            liDevelopedBy.textContent = `Desenvolvido por ${sanitize(developedBy)}`
+
+            if (createdAt) {
+                const liDate = document.createElement('li')
+                liDate.textContent = `Adicionado no banco em ${getFormattedDate(createdAt)}`
+                ul.append(liDate)
+            }
+
+            const button = document.createElement('button')
+            button.textContent = 'Remover'
+            button.setAttribute('data-remove', id)
+            button.setAttribute('class', 'btn btn-danger btn-sm')
+
+            ul.append(liDevelopedBy)
+
+            liGame.append(h5, ul, button)
+
+            return liGame     
+        }) 
+
+        games.forEach(game => gamesList.append(game))
     }
 } 
 
@@ -78,8 +100,8 @@ const addGame = async e => {
     e.preventDefault()
 
     const [error, doc] = await to(addDoc(collectionGames, {
-        title: e.target.title.value,
-        developedBy: e.target.developer.value,
+        title: sanitize(e.target.title.value),
+        developedBy: sanitize(e.target.developer.value),
         createdAt: serverTimestamp()
     }))
 
@@ -139,3 +161,15 @@ formAddGame.addEventListener('submit', addGame)
 buttonUnsub.addEventListener('click', unsubscribe)
 
 
+/*
+return `${acc}<li data-id="${id}"class="my-4">
+                <h5>${title}</h5>
+    
+                <ul>
+                    <li>Desenvolvido por ${developedBy}</li>  
+                    ${createdAt ? `<li>Adicionado no banco em ${getFormattedDate(createdAt)}</li>` : ''}
+                </ul>
+    
+                <button data-remove="${id}"class="btn btn-danger btn-sm">Remover</button>
+           </li>`
+*/
