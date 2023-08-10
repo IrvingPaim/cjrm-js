@@ -67,31 +67,6 @@ const renderGamesList = querySnapshot => {
     }
 } 
 
-/*
-getDocs(collectionGames)
-    .then(querySnapshot => {
-        const gamesLis = querySnapshot.docs.reduce((acc, doc) => {
-            const { title, developedBy, createdAt } = doc.data()
-
-           acc += `<li data-id="${doc.id}"class="my-4">
-                <h5>${title}</h5>
-
-                <ul>
-                    <li>Desenvolvido por ${developedBy}</li>
-                    <li>Adicionado no banco em ${createdAt.toDate()}</li>
-                </ul>
-
-                <button data-remove="${doc.id}"class="btn btn-danger btn-sm">Remover</button>
-           </li>` 
-
-           return acc
-        }, '') 
-
-        gamesList.innerHTML = gamesLis
-    })
-    .catch(console.log)
-*/
-
 const to = promise => promise
     .then(result => [null, result])
     .catch(error => [error])
@@ -112,20 +87,6 @@ const addGame = async e => {
     log('Document criado com o ID', doc.id)
     e.target.reset()
     e.target.title.focus()
-
-    /*
-    addDoc(collectionGames, {
-        title: e.target.title.value,
-        developedBy: e.target.developer.value,
-        createdAt: serverTimestamp()
-    })
-    .then(doc => {
-        log('Document criado com o ID', doc.id)
-        e.target.reset()
-        e.target.title.focus()
-    })
-    .catch(log)
-    */
 }
 
 const deleteGame = async e => {
@@ -142,15 +103,6 @@ const deleteGame = async e => {
     }
 
     log('Game removido')
-
-    /*
-    try {
-        await deleteDoc(doc(db,'games', idRemoveButton))
-        log('Game removido')
-    } catch (e) {
-        log(e)
-    } // return early
-    */
 }
 
 const handleSnapshotError = e => log(e)
@@ -160,16 +112,3 @@ gamesList.addEventListener('click', deleteGame)
 formAddGame.addEventListener('submit', addGame)
 buttonUnsub.addEventListener('click', unsubscribe)
 
-
-/*
-return `${acc}<li data-id="${id}"class="my-4">
-                <h5>${title}</h5>
-    
-                <ul>
-                    <li>Desenvolvido por ${developedBy}</li>  
-                    ${createdAt ? `<li>Adicionado no banco em ${getFormattedDate(createdAt)}</li>` : ''}
-                </ul>
-    
-                <button data-remove="${id}"class="btn btn-danger btn-sm">Remover</button>
-           </li>`
-*/
